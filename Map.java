@@ -12,7 +12,8 @@ public class Map {
     };
 
     // Return the map
-    public char[][] get_Map() {
+    public char[][] getMap() {
         return map;
     }
+
 }

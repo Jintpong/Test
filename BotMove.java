@@ -1,5 +1,5 @@
 import java.util.Random;
-
+// Define the BotMove class
 public class BotMove {
     private int botX;
     private int botY;
@@ -12,32 +12,37 @@ public class BotMove {
     }
 
     public String getBotCommand(char[][] map, int playerX, int playerY) {
-        // Check the 5x5 grid around the bot for the player
+        // Checking the 5x5 grid around the bot to check for the player
         for (int dx = -2; dx <= 2; dx++) {
             for (int dy = -2; dy <= 2; dy++) {
                 int checkX = botX + dx;
                 int checkY = botY + dy;
 
-                // Ensure we don't go out of bounds
+                // Checking that the bot will not out of bound of the map
                 if (checkX >= 0 && checkX < map.length && checkY >= 0 && checkY < map[0].length) {
                     if (map[checkX][checkY] == 'P') {
                         // Move towards the player
                         if (checkX < botX && botX - 1 >= 0 && map[botX - 1][botY] != '#') {
-                            updateMap(map, botX, botY); // Clear old position
+                            //Clear old position
+                            updateMap(map, botX, botY); 
                             botX -= 1;
-                            map[botX][botY] = 'B'; // Mark new position
+                            //Make the new position for the bot
+                            map[botX][botY] = 'B'; 
                             return "Move N";
-                        } else if (checkX > botX && botX + 1 < map.length && map[botX + 1][botY] != '#') {
+                        } 
+                        else if (checkX > botX && botX + 1 < map.length && map[botX + 1][botY] != '#') {
                             updateMap(map, botX, botY);
                             botX += 1;
                             map[botX][botY] = 'B';
                             return "Move S";
-                        } else if (checkY < botY && botY - 1 >= 0 && map[botX][botY - 1] != '#') {
+                        } 
+                        else if (checkY < botY && botY - 1 >= 0 && map[botX][botY - 1] != '#') {
                             updateMap(map, botX, botY);
                             botY -= 1;
                             map[botX][botY] = 'B';
                             return "Move W";
-                        } else if (checkY > botY && botY + 1 < map[0].length && map[botX][botY + 1] != '#') {
+                        } 
+                        else if (checkY > botY && botY + 1 < map[0].length && map[botX][botY + 1] != '#') {
                             updateMap(map, botX, botY);
                             botY += 1;
                             map[botX][botY] = 'B';
@@ -48,7 +53,7 @@ public class BotMove {
             }
         }
 
-        // If player is not detected, move randomly
+        // If the player is not found make the bot move randomly
         return moveRandomly(map);
     }
 
@@ -66,15 +71,15 @@ public class BotMove {
             if (newBotX >= 0 && newBotX < map.length && 
                 newBotY >= 0 && newBotY < map[0].length && 
                 map[newBotX][newBotY] != '#') {
-                updateMap(map, botX, botY); // Clear old position
+                updateMap(map, botX, botY); 
                 botX = newBotX;
                 botY = newBotY;
-                map[botX][botY] = 'B'; // Mark new position
+                map[botX][botY] = 'B'; 
                 return moves[direction];
             }
         }
 
-        // Default to moving east if possible
+        // Default to moving east 
         if (botY + 1 < map[0].length && map[botX][botY + 1] != '#') {
             updateMap(map, botX, botY);
             botY += 1;
@@ -82,18 +87,20 @@ public class BotMove {
             return "Move E";
         }
 
-        // If moving east is not possible, stay in place
-        return "STAY";
+        // Return bot remain in place if any move is not possible
+        return "Bot remain in place";
     }
 
     private void updateMap(char[][] map, int oldBotX, int oldBotY) {
-        map[oldBotX][oldBotY] = '.'; // Clear the old position
+        map[oldBotX][oldBotY] = '.'; 
     }
 
+    // Return the X coordinate of the bot
     public int getBotX() {
         return botX;
     }
 
+    // Return the Y coordinate of the bot
     public int getBotY() {
         return botY;
     }

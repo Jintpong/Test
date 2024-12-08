@@ -4,7 +4,7 @@ public class Main {
         Map game_map = new Map();
 
         // Get the map
-        char[][] map = game_map.get_Map();
+        char[][] map = game_map.getMap();
 
 
         Command command = new Command(map);
